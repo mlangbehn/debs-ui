@@ -18,6 +18,14 @@ db.find({selector:{type:'Feature'}}, function(er, result) {
   if(er) {
     throw er;
   }
+  result.docs.forEach(function(doc) {
+    delete doc._id;
+    delete doc._rev;
+    doc.properties.detections.forEach(function(detection) {
+      doc[[detection.model,detection.class].join('__')] = detection.confidence;
+    });
+    delete doc.properties.detections;
+  });
   fc = {
     type: "FeatureCollection",
     "features": result.docs
@@ -33,5 +41,10 @@ router.get('/', function(req, res, next) {
 router.get('/data', function(req, res, next) {
   res.send(fc);
 });
+
+router.get('/token', function(req, res, next) {
+  res.send({ token: process.env.MAPBOX_TOKEN});
+});
+
 
 module.exports = router;
