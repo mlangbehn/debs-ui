@@ -8,7 +8,7 @@
     "dev": "DEBUG=vis-ui:* npm run-script dev-start"
   },
   "dependencies": {
-    "@cloudant/cloudant": "^2.4.0",
+    "@cloudant/cloudant": "^4.5.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^6.0.0",
